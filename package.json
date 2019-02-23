@@ -4,6 +4,7 @@
   "description": "Profile page where user can edit their details.",
   "main": "/server/index.js",
   "scripts": {
+    "start": "node /server/index.js",
     "test": "npm test",
     "lint": "eslint --ext .js,.jsx --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .js,.jsx --ignore-path .gitignore ."
