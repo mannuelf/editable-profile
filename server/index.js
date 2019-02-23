@@ -23,3 +23,16 @@ app.use((req, res) => {
   res.status(404)
 })
 
+MongoClient.connect(url, options, (err, database) => {
+  if (err) {
+    console.log(`FATAL MONGODB CONNECTION ERROR: ${err}:${err.stack}`)
+    process.exit(1)
+  }
+  app.locals.db = database.db('api')
+  http.listen(port, () => {
+    console.log('Listenning on port ' + port)
+    app.emit('APP_STARTED')
+  })
+})
+
+module.exports = app
