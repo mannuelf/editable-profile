@@ -2,7 +2,7 @@ const test = require('tape')
 const request = require('supertest')
 const express = require('express')
 
-const User = require('./models/User')
+const User = require('./models/user/index.js')
 const app = require('../index')
 let documentId
 

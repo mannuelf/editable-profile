@@ -30,7 +30,7 @@ MongoClient.connect(url, options, (err, database) => {
   }
   app.locals.db = database.db('api')
   http.listen(port, () => {
-    console.log('Listenning on port ' + port)
+    console.log('Listening on port ' + port)
     app.emit('APP_STARTED')
   })
 })
