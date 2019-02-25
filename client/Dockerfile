@@ -1,4 +1,4 @@
-FROM mhart/mhart/alpine-node:latest
+FROM node:11.10.0-alpine
 
 WORKDIR /client
 
