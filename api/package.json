@@ -1,40 +1,21 @@
 {
-  "name": "user-profile",
-  "version": "1.0.0",
-  "description": "Profile page where user can edit their details.",
+  "name": "spark-api",
+  "version": "0.0.1",
+  "description": "simple api",
   "main": "index.js",
   "scripts": {
-    "test": "echo test",
-    "start": "node index.js"
+    "test": "mocha ./tests --recursive",
+    "start": "nodemon server"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mannuelf/editable-profile.git"
-  },
-  "keywords": [
-    "NodeJs",
-    "React",
-    "MongoDB"
-  ],
   "author": "Mannuel Ferreira",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mannuelf/editable-profile/issues"
-  },
-  "homepage": "https://github.com/mannuelf/editable-profile#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "mongodb": "^3.1.13"
+    "mongoose": "^5.4.15",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.5",
-    "eslint": "^5.14.1",
-    "eslint-loader": "^2.1.2",
-    "eslint-plugin-react": "^7.12.4",
-    "mocha": "^6.0.1",
-    "supertest": "^3.4.2",
-    "tape": "^4.10.1"
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2"
   }
 }
