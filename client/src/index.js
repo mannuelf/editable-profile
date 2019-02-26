@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import './index.css'
+import './assets/sass/app.sass'
 import App from './App'
 
 import { createStore, compose } from "redux"

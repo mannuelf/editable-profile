@@ -1,33 +1,26 @@
 import React, { Component } from 'react';
-import { setDisplayName } from './../../actions/index.js'
+import { setProfile } from './../../actions/index.js'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import photo from './../../assets/img/photo.png'
+import ProfileComponent from './../../components/ProfileComponent'
 
 class ProfilePage extends Component {
-  constructor(props) {
-    super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.setDisplayName(e.target.username.value)
+  updateProfileDetails = (profileObject) => {
+    this.props.setProfile(profileObject)
   }
 
   render() {
-    console.log(this.props.profile[0].displayName)
     return (
-      <div className="[ container-fluid ]">
-        <form onSubmit={this.handleSubmit}>
-          <input type="text"
-            name="username"
-            placeholder={this.props.profile[0].displayName}
-            ref={node => (this.inputNode = node)}
-          />
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    );
+      <div className="[ container ] [ is-fluid ] [ is-marginless ]">
+        <section className="[ hero ] [ is-primary ] [ profile-page ]">
+          <div className="[ container ] [ has-text-centered ] [ profile-page__photo ]">
+            {/* <img src={photo} alt={profile.displayName} /> */}
+          </div>
+        </section>
+        <ProfileComponent profileProps={this.updateProfileDetails} />
+      </div >
+    )
   }
 }
 
@@ -36,13 +29,13 @@ const mapStateToProps = state => {
   return {
     profile: state.ProfileReducer
   }
-};
+}
 
 // sets data in state
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    setDisplayName
+    setProfile
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage)
