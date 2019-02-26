@@ -1,5 +1,5 @@
 build:
- ./scripts/_build.sh
+	./scripts/_build.sh
 
 client-up:
 	./scripts/client.sh
