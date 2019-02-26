@@ -2,42 +2,27 @@
 
 Editable Profile project for Spark networks.
 
-## Install docker-compose 1.23.2
+I have chosen React Js for the front end and express server for the back-end, using MonogoDB for the database. I am using Docker and docker-compose to manage containers.
 
-https://docs.docker.com/compose/install/
+## Local development
 
-```bash
-sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-```
+- I have dockerised the client which is a react app.
+- I have dockerised the api which is an express app.
 
-## Build containers
-
-```bash
-cd client && docker build -t mannuelf/spark-client:0.0.1 .
-```
+To start run helpful make commands:
 
 ```bash
-cd api && docker build -t mannuelf/spark-api:0.0.1 .
+make help
+
+make build
+
+make client-up
+
+make api-up
 ```
 
-## Run containers locally
+## Install Docker & Docker Compose
 
-```bash
-cd client && docker run -p 8080:3000 --name spark-client -t mannuelf/spark-client:0.0.1
-```
+[https://docs.docker.com/install/linux/docker-ce/ubuntu/](www.docs.docker.com/install/linux/docker-ce/ubuntu/d)
 
-```bash
-cd api && docker run -p 8081:9000 --name spark-api -t mannuelf/spark-api
-```
-
-## Run Client
-
-```bash
-make client
-```
-
-## Run Api
-
-```bash
-make api
-```
+[https://docs.docker.com/compose/install/](www.docs.docker.com/compose/install/)
