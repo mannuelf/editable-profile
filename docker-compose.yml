@@ -1,25 +1,27 @@
 version: "3"
 services:
     client:
-        image: spark-client
+        image: node:11.10.0-alpine
         restart: always
         ports:
-            - "3000:3000"
+            - "3080:3080"
         volumes:
             - ./client:/client
             - /client/node_modules
+        entrypoint: ["npm", "start"]
         links:
             - api
         networks:
             - sparkwebappnetwork
     api:
-        image: spark-api
+        image: node:11.10.0-alpine
         restart: always
         ports:
-            - "9000:9000"
+            - "9080:9080"
         volumes:
             - ./api:/api
             - /api/node_modules
+        entrypoint: ["npm", "start"]
         depends_on:
             - mongodb
         networks:
