@@ -5,18 +5,19 @@ import {
 
 const initialState = [
   {
-    displayName: 'Rafa',
-    realName: 'Rafael Benítez',
-    profilePicture: '',
+    aboutMe: 'I am a professional football manager. I enjoy reading and classical music. I never bring work home, I promise',
     birthday: '16 April 1960',
-    gender: 'Male',
-    religion: 'Christian',
-    userHeight: 1.56,
+    displayName: 'Rafa',
+    ethnicity: 'Caucasian',
     figure: 'happy',
+    gender: 'Male',
+    location: 'Newcastle Upon Tyne',
     maritalStatus: 'Single',
     occupation: 'Football Manager',
-    aboutMe: 'I am a professional football manager. I enjoy reading and classical music. I never bring work home, I promise',
-    location: 'Newcastle Upon Tyne'
+    profilePicture: '',
+    realName: 'Rafael Benítez',
+    religion: 'Christian',
+    userHeight: 1.56,
   }
 ]
 const ProfileReducer = (state = initialState, action) => {

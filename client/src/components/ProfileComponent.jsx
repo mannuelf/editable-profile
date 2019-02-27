@@ -6,45 +6,90 @@ class ProfileComponent extends Component {
     super(props)
     let profile = this.props.profile[0];
     this.state = {
-      displayName: profile.displayName,
-      realName: profile.realName,
       aboutMe: profile.aboutMe,
-      location: profile.username,
-      username: profile.username,
-      gender: profile.gender,
+      displayName: profile.displayName,
       ethnicity: profile.ethnicity,
-      religion: profile.religion,
-      userHeight: profile.userHeight,
       figure: profile.figure,
+      file: profile.file,
+      gender: profile.gender,
+      location: profile.location,
       maritalStatus: profile.maritalStatus,
       occupation: profile.occupation,
-      file: profile.file,
+      realName: profile.realName,
+      religion: profile.religion,
+      userHeight: profile.userHeight,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleDisplayName = () => {
-
-  }
-
   handleSubmit = (e) => {
     e.preventDefault();
+
     let profileObject = {
-      displayName: e.target.displayName.value,
-      realName: e.target.realName.value,
-      aboutMe: e.target.aboutMe.value,
-      location: e.target.location.value,
-      username: e.target.username.value,
-      gender: e.target.gender.value,
-      ethnicity: e.target.ethnicity.value,
+      aboutMe: this.state.aboutMe,
+      displayName: this.state.displayName,
+      ethnicity: this.state.ethnicity,
+      figure: this.state.figure,
+      file: this.state.file,
+      gender: this.state.gender,
+      location: this.state.location,
+      maritalStatus: this.state.maritalStatus,
+      occupation: this.state.occupation,
+      realName: this.state.realName,
       religion: e.target.religion.value,
-      userHeight: e.target.userHeight.value,
-      figure: e.target.figure.value,
-      maritalStatus: e.target.maritalStatus.value,
-      occupation: e.target.occupation.value,
-      file: e.target.file.value,
+      userHeight: this.state.userHeight,
     }
+    console.log('STATE', profileObject)
     this.props.profileProps(profileObject)
+  }
+
+  handleAboutMe = (event) => {
+    this.setState({ aboutMe: event.target.value })
+    console.log('handleDisplayName', this.state.aboutMe);
+  }
+
+  handleDisplayName = (event) => {
+    this.setState({ displayName: event.target.value })
+  }
+
+  handleEthnicity = (event) => {
+    this.setState({ ethnicity: event.target.value })
+  }
+
+  handleFigure = (event) => {
+    this.setState({ figure: event.target.value })
+  }
+
+  handleFile = (event) => {
+    this.setState({ file: event.target.value })
+  }
+
+  handleLocation = (event) => {
+    this.setState({ location: event.target.value })
+  }
+
+  handleAboutMe = (event) => {
+    this.setState({ aboutMe: event.target.value })
+  }
+
+  handleMaritalStatus = (event) => {
+    this.setState({ maritalStatus: event.target.value })
+  }
+
+  handleOccupation = (event) => {
+    this.setState({ occupation: event.target.value })
+  }
+
+  handleRealName = (event) => {
+    this.setState({ realName: event.target.value })
+  }
+
+  handleReligion = (event) => {
+    this.setState({ religion: event.target.value })
+  }
+
+  handleUserHeight = (event) => {
+    this.setState({ userHeight: event.target.value })
   }
 
   render() {
@@ -59,7 +104,7 @@ class ProfileComponent extends Component {
                   type="text"
                   name="displayName"
                   value={this.state.displayName}
-                  ref={node => (this.inputNode = node)}
+                  onChange={this.handleDisplayName}
                 />
               </h1>
               <h2 className="[ subtitle ] [ is-size-2 ]">
@@ -68,7 +113,7 @@ class ProfileComponent extends Component {
                   type="text"
                   name="realName"
                   value={this.state.realName}
-                  ref={node => (this.inputNode = node)}
+                  onChange={this.handleRealName}
                 />
                 <span className="[ mandatory]">*</span>
               </h2>
@@ -100,7 +145,8 @@ class ProfileComponent extends Component {
                 <textarea
                   className="textarea"
                   name="aboutMe"
-                  ref={node => (this.inputNode = node)}
+                  value={this.state.aboutMe}
+                  onChange={this.handleAboutMe}
                 >
                   {this.state.aboutMe}
                 </textarea>
@@ -112,7 +158,7 @@ class ProfileComponent extends Component {
                 type="text"
                 name="gender"
                 value={this.state.gender}
-                ref={node => (this.inputNode = node)}
+                onChange={this.handleGender}
               />
               <h3>Ethnicity</h3>
               <input
@@ -120,7 +166,7 @@ class ProfileComponent extends Component {
                 type="text"
                 name="ethnicity"
                 value={this.state.ethnicity}
-                ref={node => (this.inputNode = node)}
+                onChange={this.handleEthnicity}
               />
               <h3>Religion</h3>
               <input
@@ -128,7 +174,7 @@ class ProfileComponent extends Component {
                 type="text"
                 name="religion"
                 value={this.state.religion}
-                ref={node => (this.inputNode = node)}
+                onChange={this.handleReligion}
               />
               <h3>Height</h3>
               <input
@@ -136,7 +182,7 @@ class ProfileComponent extends Component {
                 type="text"
                 name="userHeight"
                 value={this.state.userHeight}
-                ref={node => (this.inputNode = node)}
+                onChange={this.handleUserHeight}
               />
               <h3>Figure</h3>
               <input
@@ -144,15 +190,16 @@ class ProfileComponent extends Component {
                 type="text"
                 name="figure"
                 value={this.state.figure}
-                ref={node => (this.inputNode = node)}
+                onChange={this.handleFigure}
               />
               <h3>Marital Status</h3>
+              {/* This one might need to be select drop down */}
               <input
                 className="[]"
                 type="text"
                 name="maritalStatus"
                 value={this.state.maritalStatus}
-                ref={node => (this.inputNode = node)}
+                onChange={this.handleMaritalStatus}
               />
               <h3>Occupation</h3>
               <input
@@ -160,14 +207,15 @@ class ProfileComponent extends Component {
                 type="text"
                 name="occupation"
                 value={this.state.occupation}
-                ref={node => (this.inputNode = node)}
+                onChange={this.handleOccupation}
               />
               <h3>Location</h3>
+              {/* This one has to come from the API/DB */}
               <div className="control has-icons-left">
                 <div className="select">
                   <select
                     name="location"
-                    ref={node => (this.inputNode = node)}
+                    onChange={this.handleLocation}
                   >
                     <option>Country</option>
                     <option>Select dropdown</option>

@@ -1,3 +1,5 @@
+.PHONY: Spark networks edit profile application
+
 help:
 	@echo 'make wraps scripts and commands to make development easier'
 	@echo
@@ -16,3 +18,6 @@ client-up:
 
 api-up:
 	./scripts/api.sh
+
+clean:
+	./scripts/clean.sh
