@@ -13,7 +13,6 @@ class ProfileComponent extends Component {
       displayName: profile.displayName,
       ethnicity: profile.ethnicity,
       figure: profile.figure,
-      file: profile.file,
       gender: profile.gender,
       location: profile.location,
       maritalStatus: profile.maritalStatus,
@@ -39,7 +38,6 @@ class ProfileComponent extends Component {
       displayName: this.state.displayName,
       ethnicity: this.state.ethnicity,
       figure: this.state.figure,
-      file: this.state.file,
       gender: this.state.gender,
       location: this.state.location,
       maritalStatus: this.state.maritalStatus,
@@ -47,14 +45,15 @@ class ProfileComponent extends Component {
       realName: this.state.realName,
       religion: e.target.religion.value,
       userHeight: this.state.userHeight,
+      selectedFile: this.state.selectedFile,
+      loaded: this.state.loaded,
     }
-    console.log('STATE', profileObject)
+
     this.props.profileProps(profileObject)
   }
 
   handleAboutMe = (event) => {
     this.setState({ aboutMe: event.target.value })
-    console.log('handleDisplayName', this.state.aboutMe);
   }
 
   handleDisplayName = (event) => {
@@ -148,7 +147,7 @@ class ProfileComponent extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <section className="[ hero ] [ is-primary ]">
+        <section className="[ hero ] [ is-primary ] [ is-primary--dark ]">
           <div className="[ hero-body ]">
             <div className="[ container ]">
               <h1><span className="[ mandatory]">*</span>
@@ -160,9 +159,9 @@ class ProfileComponent extends Component {
                   onChange={this.handleDisplayName}
                 />
               </h1>
-              <h2 className="[ subtitle ] [ is-size-2 ]">
+              <h2>
                 <input
-                  className="[ subtitle ] [ is-size-2 ]"
+                  className="[ profile-page__name ] [ is-size-1 ]"
                   type="text"
                   name="realName"
                   value={this.state.realName}
@@ -173,117 +172,147 @@ class ProfileComponent extends Component {
             </div>
           </div>
         </section>
-        <section className="[ container ]">
-          <div className="columns">
-            <div className="columns">
-              <h3>Upload Photo</h3>
-              <div className="file has-name is-right">
-                <label className="file-label">
-                  <input className="file-input" type="file" name="file" />
-                  <span className="file-cta">
-                    <span className="file-icon">
-                      <i className="fas fa-upload"></i>
-                    </span>
-                    <span className="file-label">
-                      Choose a file…
-                    </span>
-                  </span>
-                  <span className="file-name">
-                    Upload photo
-                  </span>
-                </label>
-              </div>
-              <h3>About Me</h3>
-              <div className="control">
-                <textarea
-                  className="textarea"
-                  name="aboutMe"
-                  value={this.state.aboutMe}
-                  onChange={this.handleAboutMe}
-                >
-                  {this.state.aboutMe}
-                </textarea>
-              </div>
-              <h3>Birthday</h3>
-              <h3>Gender</h3>
-              <input
-                className="[]"
-                type="text"
-                name="gender"
-                value={this.state.gender}
-                onChange={this.handleGender}
-              />
-              <h3>Ethnicity</h3>
-              <input
-                className="[]"
-                type="text"
-                name="ethnicity"
-                value={this.state.ethnicity}
-                onChange={this.handleEthnicity}
-              />
-              <h3>Religion</h3>
-              <input
-                className="[]"
-                type="text"
-                name="religion"
-                value={this.state.religion}
-                onChange={this.handleReligion}
-              />
-              <h3>Height</h3>
-              <input
-                className="[]"
-                type="text"
-                name="userHeight"
-                value={this.state.userHeight}
-                onChange={this.handleUserHeight}
-              />
-              <h3>Figure</h3>
-              <input
-                className="[]"
-                type="text"
-                name="figure"
-                value={this.state.figure}
-                onChange={this.handleFigure}
-              />
-              <h3>Marital Status</h3>
-              {/* This one might need to be select drop down */}
-              <input
-                className="[]"
-                type="text"
-                name="maritalStatus"
-                value={this.state.maritalStatus}
-                onChange={this.handleMaritalStatus}
-              />
-              <h3>Occupation</h3>
-              <input
-                className="[]"
-                type="text"
-                name="occupation"
-                value={this.state.occupation}
-                onChange={this.handleOccupation}
-              />
-              <h3>Location</h3>
-              {/* This one has to come from the API/DB */}
-              <div className="control has-icons-left">
-                <div className="select">
-                  <select
-                    name="location"
-                    onChange={this.handleLocation}
-                  >
-                    <option>Country</option>
-                    <option>Select dropdown</option>
-                  </select>
+        <section className="[ section ] [ background-stripes ]">
+          <section className="[ container ]">
+
+            <div className="tile is-ancestor">
+              <div className="tile is-vertical is-8">
+                <div className="tile">
+                  <div className="tile is-parent is-vertical">
+                    <article className="tile is-child box">
+                      <h3 className="[ is-size-4 ]">About Me</h3>
+                      <div className="control">
+                        <textarea
+                          className="[ textarea ] [ is-editable-input ]"
+                          name="aboutMe"
+                          value={this.state.aboutMe}
+                          onChange={this.handleAboutMe}
+                        >
+                          {this.state.aboutMe}
+                        </textarea>
+                      </div>
+                    </article>
+                    <article className="tile is-child box">
+                      <h3 className="[ is-size-4 ]">Upload Photo</h3>
+                      <div className="file has-name is-right">
+                        <label className="file-label">
+                          <input className="file-input" type="file" name="file"
+                            onChange={this.handleSelectedFile}
+                          />
+                          <span className="file-cta">
+                            <span className="file-icon">
+                              <i className="fas fa-upload"></i>
+                            </span>
+                            <span className="file-label">
+                              Choose a photo...
+                            </span>
+                          </span>
+                          <span className="file-name">
+                            Upload photo
+                          </span>
+                        </label>
+                        <div> {Math.round(this.state.loaded, 2)} %</div>
+                      </div>
+                    </article>
+                  </div>
+                  <div className="tile is-parent">
+                    <article className="tile is-child box">
+                      <h3 className="[ is-size-4 ]">Location</h3>
+                      {/* This one has to come from the API/DB */}
+                      <div className="control has-icons-left">
+                        <div className="select">
+                          <select
+                            name="location"
+                            onChange={this.fetchCities}
+                          >
+                            <option>Country</option>
+                            <option>Select dropdown</option>
+                          </select>
+                        </div>
+                        <span className="icon is-left">
+                          <i className="fas fa-globe"></i>
+                        </span>
+                      </div>
+                    </article>
+                  </div>
                 </div>
-                <span className="icon is-left">
-                  <i className="fas fa-globe"></i>
-                </span>
+                <div className="tile is-parent">
+                  <article className="tile is-child box">
+                    ...
+                  </article>
+                </div>
+              </div>
+              <div className="tile is-parent">
+                <article className="tile is-child box">
+                  <h3 className="[ is-size-4 ]">Birthday</h3>
+                  <h3 className="[ is-size-4 ]">Gender</h3>
+                  <input
+                    className="[ is-editable-input  ]"
+                    type="text"
+                    name="gender"
+                    value={this.state.gender}
+                    onChange={this.handleGender}
+                  />
+                  <h3 className="[ is-size-4 ]">Ethnicity</h3>
+                  <input
+                    className="[ is-editable-input  ]"
+                    type="text"
+                    name="ethnicity"
+                    value={this.state.ethnicity}
+                    onChange={this.handleEthnicity}
+                  />
+                  <h3 className="[ is-size-4 ]">Religion</h3>
+                  <input
+                    className="[ is-editable-input  ]"
+                    type="text"
+                    name="religion"
+                    value={this.state.religion}
+                    onChange={this.handleReligion}
+                  />
+                  <h3 className="[ is-size-4 ]">Height</h3>
+                  <input
+                    className="[ is-editable-input  ]"
+                    type="text"
+                    name="userHeight"
+                    value={this.state.userHeight}
+                    onChange={this.handleUserHeight}
+                  />
+                  <h3 className="[ is-size-4 ]">Figure</h3>
+                  <input
+                    className="[ is-editable-input  ]"
+                    type="text"
+                    name="figure"
+                    value={this.state.figure}
+                    onChange={this.handleFigure}
+                  />
+                  <h3 className="[ is-size-4 ]">Marital Status</h3>
+                  <input
+                    className="[ is-editable-input  ]"
+                    type="text"
+                    name="maritalStatus"
+                    value={this.state.maritalStatus}
+                    onChange={this.handleMaritalStatus}
+                  />
+                  <h3 className="[ is-size-4 ]">Occupation</h3>
+                  <input
+                    className="[ is-editable-input  ]"
+                    type="text"
+                    name="occupation"
+                    value={this.state.occupation}
+                    onChange={this.handleOccupation}
+                  />
+                </article>
               </div>
             </div>
-          </div>
 
-          <input type="submit" value="Submit" />
+            <input
+              className="button is-large is-primary is-fullwidth"
+              onClick={this.handleUpload}
+              type="submit"
+              value="SAVE PROFILE"
+            />
+          </section>
         </section>
-
       </form>
     );
   }
