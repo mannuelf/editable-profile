@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import API from '../api'
 
+let apiEndPoint = 'http://locahost:9000'
+let apiCities = 'http://localhost:8080/en/locations/cities.json'
 class ProfileComponent extends Component {
   constructor(props) {
     super(props)
@@ -18,8 +21,14 @@ class ProfileComponent extends Component {
       realName: profile.realName,
       religion: profile.religion,
       userHeight: profile.userHeight,
+      selectedFile: profile.selectedFile,
+      loaded: 0,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount = () => {
+    this.fetchCities()
   }
 
   handleSubmit = (e) => {
@@ -60,8 +69,52 @@ class ProfileComponent extends Component {
     this.setState({ figure: event.target.value })
   }
 
-  handleFile = (event) => {
-    this.setState({ file: event.target.value })
+  handleGender = (event) => {
+    this.setState({ gender: event.target.value })
+  }
+
+  handleSelectedFile = (event) => {
+    this.setState({
+      selectedFile: event.target.files[0],
+      loaded: 0
+    })
+  }
+
+  handleUpload = (profileObject) => {
+    const data = new FormData(profileObject)
+    data.append('file',
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    )
+    console.log('data', data)
+    API.post(`${apiEndPoint}/upload`, data, {
+      onUploadProgress: ProgressEvent => {
+        this.setState({
+          loaded: (ProgressEvent.loaded / ProgressEvent.total * 100),
+        })
+        // console.log('axios', data)
+      },
+    })
+      .then(response => {
+        // console.log('response', response)
+      })
+      .catch(error => {
+        // console.log('error', error)
+      })
+  }
+
+  fetchCities = () => {
+    console.log('fetching cities');
+    API.get(`${apiCities}`)
+      .then(res => {
+        let locations = res.data
+        this.setState({
+          location: locations
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   handleLocation = (event) => {
