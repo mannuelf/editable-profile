@@ -2,11 +2,10 @@
 
 Editable Profile project for Spark networks.
 
-This is a mono repository containing two separate node application.
+This is a mono repository containing two application.
 
 1. client
 2. api
-3. mongodb (database)
 
 ## Client
 
@@ -19,11 +18,16 @@ I am using an express server for the back-end. I used `express-generator` to sca
 I've setup two routes for the given endpoints, and setup on POST route to save the image.
 
 ```bash
-http://localhost:9000/locations/cities
-http://localhost:9000/user/attributes
+curl http://localhost:9000/locations/cities
+curl http://localhost:9000/user/attributes
+curl http://localhost:9000/upload
 ```
 
-[api](https://themwebs.me/images/api.png)
+![api](https://themwebs.me/images/api.png)
+
+## Database - MongoDB
+
+Using MongoDB, pull down a docker container, all handled by scripts.
 
 ### Local development
 
