@@ -3,10 +3,6 @@ const Schema = mongoose.Schema
 
 // create user schema and model
 const UserSchema = new Schema({
-  name: {
-    type: String,
-    required: [true, 'Name field is require']
-  },
   aboutMe: {
     type: String,
     required: [true, 'This field is required']
@@ -36,7 +32,7 @@ const UserSchema = new Schema({
     type: String,
   },
   profilePicture: {
-    type: Image,
+    type: String,
   },
   realName: {
     type: String,
@@ -49,6 +45,10 @@ const UserSchema = new Schema({
     type: String,
   },
   userHeight: {
-    type: Float,
+    type: String,
   },
 })
+
+const User = mongoose.model('user', UserSchema)
+
+module.exports = UserSchema
