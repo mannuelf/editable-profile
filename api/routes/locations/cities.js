@@ -5,7 +5,7 @@ const router = express.Router()
 const consola = require('consola')
 const data = require('../../data/en/locations/cities.json')
 
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
   res.json(data)
 });
 

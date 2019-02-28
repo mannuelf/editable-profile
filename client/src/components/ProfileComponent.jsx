@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import API from '../api'
-
-let apiEndPoint = 'http://locahost:9000'
-let apiCities = 'http://localhost:8080/en/locations/cities.json'
 class ProfileComponent extends Component {
   constructor(props) {
     super(props)
@@ -79,32 +76,31 @@ class ProfileComponent extends Component {
     })
   }
 
-  handleUpload = (profileObject) => {
-    const data = new FormData(profileObject)
-    data.append('file',
-      this.state.selectedFile,
-      this.state.selectedFile.name
-    )
-    console.log('data', data)
-    API.post(`${apiEndPoint}/upload`, data, {
-      onUploadProgress: ProgressEvent => {
-        this.setState({
-          loaded: (ProgressEvent.loaded / ProgressEvent.total * 100),
-        })
-        // console.log('axios', data)
-      },
-    })
-      .then(response => {
-        // console.log('response', response)
-      })
-      .catch(error => {
-        // console.log('error', error)
-      })
-  }
+  // handleUpload = (profileObject) => {
+  // const data = new FormData(profileObject)
+  // data.append('file',
+  //   this.state.selectedFile,
+  //   this.state.selectedFile.name
+  // )
+  // console.log('data', data)
+  // API.post(`${apiEndPoint}/upload`, data, {
+  //   onUploadProgress: ProgressEvent => {
+  //     this.setState({
+  //       loaded: (ProgressEvent.loaded / ProgressEvent.total * 100),
+  //     })
+  //     // console.log('axios', data)
+  //   },
+  // })
+  //   .then(response => {
+  //     // console.log('response', response)
+  //   })
+  //   .catch(error => {
+  //     // console.log('error', error)
+  //   })
+  // }
 
   fetchCities = () => {
-    console.log('fetching cities');
-    API.get(`${apiCities}`)
+    API.get(`/locations/cities`)
       .then(res => {
         let locations = res.data
         this.setState({
@@ -145,8 +141,11 @@ class ProfileComponent extends Component {
   }
 
   render() {
+    console.log('LOCATION:', this.state.location)
+    let apiCities = this.state.location;
+    console.log('WUT', apiCities)
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} >
         <section className="[ hero ] [ is-primary ] [ is-primary--dark ]">
           <div className="[ hero-body ]">
             <div className="[ container ]">
@@ -218,9 +217,9 @@ class ProfileComponent extends Component {
                   <div className="tile is-parent">
                     <article className="tile is-child box">
                       <h3 className="[ is-size-4 ]">Location</h3>
-                      {/* This one has to come from the API/DB */}
                       <div className="control has-icons-left">
                         <div className="select">
+
                           <select
                             name="location"
                             onChange={this.fetchCities}
