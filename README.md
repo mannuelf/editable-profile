@@ -1,6 +1,6 @@
-# Editable Profile
+# Spark Editable Profile
 
-Editable Profile project for Spark networks.
+Editable Profile project for Spark Networks.
 
 This is a mono repository containing two application.
 
@@ -18,9 +18,9 @@ I am using an express server for the back-end. I used `express-generator` to sca
 I've setup two routes for the given endpoints, and setup on POST route to save the image.
 
 ```bash
-curl http://localhost:9000/locations/cities
-curl http://localhost:9000/user/attributes
-curl http://localhost:9000/upload
+curl http://localhost:3001/locations/cities
+curl http://localhost:3001/user/attributes
+curl http://localhost:3001/upload
 ```
 
 ![api](https://themwebs.me/images/api.png)
@@ -38,10 +38,16 @@ make help
 
 make build
 
-make client-up
+make rebuild
 
-make api-up
+make up-client
+
+make up-api
+
+make clean
 ```
+
+First  `make build` to build local docker containers of he client and api. Second `make up` to bring up mongodb and mongo-express.
 
 - I have dockerised the client and the api which is an express app.
 
