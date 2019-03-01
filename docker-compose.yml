@@ -1,27 +1,32 @@
-version: "3"
+version: '3.7'
 services:
     client:
-        image: node:11.10.0-alpine
+        build:
+          context: ./client
+          dockerfile: Dockerfile
         restart: always
         ports:
-            - "3080:3080"
+            - 3000:3000
+            - 9229:9229
         volumes:
-            - ./client:/client
+            - .:/client
             - /client/node_modules
-        entrypoint: ["npm", "start"]
+        command: npm start
         links:
             - api
         networks:
             - sparkwebappnetwork
     api:
-        image: node:11.10.0-alpine
+        build:
+          context: ./api
+          dockerfile: Dockerfile
         restart: always
         ports:
-            - "9080:9080"
+            - 3001:3001
         volumes:
-            - ./api:/api
+            - .:/api
             - /api/node_modules
-        entrypoint: ["npm", "start"]
+        command: npm run dev
         depends_on:
             - mongodb
         networks:
@@ -37,6 +42,14 @@ services:
         command: mongod --noauth --smallfiles
         networks:
             - sparkwebappnetwork
+
+    mongo-express:
+        image: mongo-express
+        ports:
+          - 8081:8081
+        networks:
+            - sparkwebappnetwork
+
 networks:
     sparkwebappnetwork:
         driver: bridge
