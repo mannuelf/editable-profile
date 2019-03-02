@@ -2,12 +2,10 @@ FROM node:11.10.0-alpine
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
+EXPOSE 3001
 
-COPY /api/package.json /usr/src/app
-RUN npm cache clean
+COPY package* ./
 RUN npm install
-COPY /api /user/src/app
-
-EXPOSE 9080
+COPY . .
 
 CMD ["npm", "start"]
