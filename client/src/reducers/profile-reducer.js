@@ -4,32 +4,32 @@ import {
   from '../actions/actionType'
 import photo from './../assets/img/photo.png'
 
-const initialState = [
-  {
-    aboutMe: 'I am a professional football manager. I enjoy reading and classical music. I never bring work home, I promise',
+const initialState = {
+  profile: {
+    aboutMe: 'I am a professional football manager. I enjoy reading and classical music. I never bring work home, I promise.',
     birthday: '16 April 1960',
     displayName: 'Rafa',
     ethnicity: 'Caucasian',
-    figure: 'happy',
+    figure: 'Sporty',
     gender: 'Male',
     location: 'Newcastle Upon Tyne',
     maritalStatus: 'Single',
     occupation: 'Football Manager',
     profilePicture: photo,
-    realName: 'Rafael Benítez',
+    realName: 'Rafael Benítez Maudes',
     religion: 'Christian',
     selectedFile: photo,
-    userHeight: 1.56,
+    userHeight: 1.75,
   }
-]
+}
+
 const ProfileReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_PROFILE:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         profile: {
           aboutMe: action.payload.aboutMe,
-          birthday: action.payload.aboutMe.birthday,
+          birthday: action.payload.birthday,
           displayName: action.payload.displayName,
           ethnicity: action.payload.ethnicity,
           figure: action.payload.figure,
@@ -42,8 +42,8 @@ const ProfileReducer = (state = initialState, action) => {
           religion: action.payload.religion,
           selectedFile: action.payload.photo,
           userHeight: action.payload.userHeight,
-        },
-      }
+        }
+      })
     default:
       return state
   }

@@ -2,26 +2,59 @@ import React, { Component } from 'react';
 import { setProfile } from './../../actions/index.js'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-// import photo from './../assets/img/photo.png'
 import ProfileComponent from './../../components/ProfileComponent'
+import API from '../../api/Api'
 
 class ProfilePage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      locations: []
+    }
+  }
   updateProfileDetails = (profileObject) => {
     this.props.setProfile(profileObject);
-    this.forceUpdate();
+  }
+
+  componentDidMount() {
+    this.getCities();
+  }
+
+  getCities = () => {
+    let cityArray = []
+    API.get('/locations/cities')
+      .then(res => {
+        cityArray = res.data.cities
+        this.setState({
+          locations: cityArray
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   render() {
-    console.log(this.props.profile[0])
+    console.log('this.state.locations', this.state.locations)
+
+    let loading = (this.state.locations === undefined || this.state.locations.length === 0)
+      ? <div>Loading Gif</div>
+      : <div>
+        <ProfileComponent
+          profileProps={this.updateProfileDetails}
+          locationProps={this.state.locations}
+          displayNameProps={this.state.displayName}
+        />
+      </div>
     return (
       <div className="[ container ] [ is-fluid ] [ is-marginless ]">
         <section className="[ hero ] [ is-primary ] [ profile-page ] [ profile-page__food--icon ]">
           <div className="[ container ] [ has-text-centered ] [ profile-page__photo ]">
-            <img src={this.props.profile[0].profilePicture} alt="" />
+            <img src={this.props.profile.profilePicture} alt="" />
           </div>
         </section>
-        <ProfileComponent profileProps={this.updateProfileDetails} />
-      </div >
+        {loading}
+      </div>
     )
   }
 }
@@ -29,7 +62,7 @@ class ProfilePage extends Component {
 // gets data from state
 const mapStateToProps = state => {
   return {
-    profile: state.ProfileReducer
+    profile: state.reducer.profile
   }
 }
 
@@ -41,3 +74,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage)
+

@@ -5,5 +5,8 @@ import {
 
 export const setProfile = payload => ({
   type: UPDATE_PROFILE,
-  payload: payload
+  profile: payload,
+  myFunction: () => {
+    console.log('Action was called with this payload ' + payload)
+  }
 })

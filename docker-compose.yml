@@ -3,14 +3,15 @@ services:
     client:
         build:
           context: ./client
-          dockerfile: Dockerfile
+          dockerfile: ./Dockerfile
         restart: always
         ports:
             - 3000:3000
             - 9229:9229
         volumes:
-            - .:/client
+            - /client:/usr/src/app
             - /client/node_modules
+        working_dir: /usr/src/app
         command: npm start
         links:
             - api
@@ -19,14 +20,15 @@ services:
     api:
         build:
           context: ./api
-          dockerfile: Dockerfile
+          dockerfile: ./Dockerfile
         restart: always
         ports:
             - 3001:3001
         volumes:
-            - .:/api
+            - /api:/usr/src/app
             - /api/node_modules
-        command: npm run dev
+        working_dir: /usr/src/app
+        command: npm start
         depends_on:
             - mongodb
         networks:

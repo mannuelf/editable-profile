@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import ProfileReducer from './profile-reducer';
+import reducer from './profile-reducer';
 
 export default combineReducers({
-    ProfileReducer
+  reducer,
 });

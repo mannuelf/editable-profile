@@ -1,30 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import API from '../api'
+import CityOptionsSelector from './CityOptionsSelector'
+import API from '../api/Api'
+
 class ProfileComponent extends Component {
   constructor(props) {
     super(props)
-    let profile = this.props.profile[0];
+    let profile = this.props.profile;
     this.state = {
       aboutMe: profile.aboutMe,
+      birthday: profile.birthday,
       displayName: profile.displayName,
       ethnicity: profile.ethnicity,
       figure: profile.figure,
       gender: profile.gender,
+      loaded: 0,
       location: profile.location,
       maritalStatus: profile.maritalStatus,
       occupation: profile.occupation,
       realName: profile.realName,
       religion: profile.religion,
-      userHeight: profile.userHeight,
       selectedFile: profile.selectedFile,
-      loaded: 0,
+      userHeight: profile.userHeight,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  componentDidMount = () => {
-    this.fetchCities()
   }
 
   handleSubmit = (e) => {
@@ -32,18 +31,19 @@ class ProfileComponent extends Component {
 
     let profileObject = {
       aboutMe: this.state.aboutMe,
+      birthday: this.state.birthday,
       displayName: this.state.displayName,
       ethnicity: this.state.ethnicity,
       figure: this.state.figure,
       gender: this.state.gender,
+      loaded: this.state.loaded,
       location: this.state.location,
       maritalStatus: this.state.maritalStatus,
       occupation: this.state.occupation,
       realName: this.state.realName,
       religion: e.target.religion.value,
-      userHeight: this.state.userHeight,
       selectedFile: this.state.selectedFile,
-      loaded: this.state.loaded,
+      userHeight: this.state.userHeight,
     }
 
     this.props.profileProps(profileObject)
@@ -51,6 +51,10 @@ class ProfileComponent extends Component {
 
   handleAboutMe = (event) => {
     this.setState({ aboutMe: event.target.value })
+  }
+
+  handleBirthday = (event) => {
+    this.setState({ birthday: event.target.value })
   }
 
   handleDisplayName = (event) => {
@@ -76,39 +80,26 @@ class ProfileComponent extends Component {
     })
   }
 
-  // handleUpload = (profileObject) => {
-  // const data = new FormData(profileObject)
-  // data.append('file',
-  //   this.state.selectedFile,
-  //   this.state.selectedFile.name
-  // )
-  // console.log('data', data)
-  // API.post(`${apiEndPoint}/upload`, data, {
-  //   onUploadProgress: ProgressEvent => {
-  //     this.setState({
-  //       loaded: (ProgressEvent.loaded / ProgressEvent.total * 100),
-  //     })
-  //     // console.log('axios', data)
-  //   },
-  // })
-  //   .then(response => {
-  //     // console.log('response', response)
-  //   })
-  //   .catch(error => {
-  //     // console.log('error', error)
-  //   })
-  // }
-
-  fetchCities = () => {
-    API.get(`/locations/cities`)
-      .then(res => {
-        let locations = res.data
+  handleUpload = (profileObject) => {
+    const data = new FormData(profileObject)
+    data.append('file',
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    )
+    console.log('data', data)
+    API.post(`/upload`, data, {
+      onUploadProgress: ProgressEvent => {
         this.setState({
-          location: locations
+          loaded: (ProgressEvent.loaded / ProgressEvent.total * 100),
         })
+        console.log('axios', data)
+      },
+    })
+      .then(response => {
+        console.log('response', response)
       })
-      .catch(err => {
-        console.log(err)
+      .catch(error => {
+        console.log('error', error)
       })
   }
 
@@ -139,17 +130,13 @@ class ProfileComponent extends Component {
   handleUserHeight = (event) => {
     this.setState({ userHeight: event.target.value })
   }
-
   render() {
-    console.log('LOCATION:', this.state.location)
-    let apiCities = this.state.location;
-    console.log('WUT', apiCities)
     return (
       <form onSubmit={this.handleSubmit} >
         <section className="[ hero ] [ is-primary ] [ is-primary--dark ]">
           <div className="[ hero-body ]">
             <div className="[ container ]">
-              <h1><span className="[ mandatory]">*</span>
+              <h1>
                 <input
                   className="[ profile-page__name ] [ is-size-1 ]"
                   type="text"
@@ -157,6 +144,7 @@ class ProfileComponent extends Component {
                   value={this.state.displayName}
                   onChange={this.handleDisplayName}
                 />
+                <span className="[ mandatory]">*</span>
               </h1>
               <h2>
                 <input
@@ -195,7 +183,7 @@ class ProfileComponent extends Component {
                       <h3 className="[ is-size-4 ]">Upload Photo</h3>
                       <div className="file has-name is-right">
                         <label className="file-label">
-                          <input className="file-input" type="file" name="file"
+                          <input className="file-input" type="file" name="upload_file"
                             onChange={this.handleSelectedFile}
                           />
                           <span className="file-cta">
@@ -216,17 +204,23 @@ class ProfileComponent extends Component {
                   </div>
                   <div className="tile is-parent">
                     <article className="tile is-child box">
+                      <h3 className="[ is-size-4 ]">Birthday</h3>
+                      <div className="control">
+                        <div className="select">
+                          <input
+                            type="date"
+                            className="[ is-editable-input ]"
+                            name="birthday"
+                            value="2018-07-22"
+                            min="2018-01-01"
+                            max="2018-12-31"
+                            onChange={this.handleBirthday} />
+                        </div>
+                      </div>
                       <h3 className="[ is-size-4 ]">Location</h3>
                       <div className="control has-icons-left">
                         <div className="select">
-
-                          <select
-                            name="location"
-                            onChange={this.fetchCities}
-                          >
-                            <option>Country</option>
-                            <option>Select dropdown</option>
-                          </select>
+                          <CityOptionsSelector locationProps={this.props.locationProps} />
                         </div>
                         <span className="icon is-left">
                           <i className="fas fa-globe"></i>
@@ -235,15 +229,10 @@ class ProfileComponent extends Component {
                     </article>
                   </div>
                 </div>
-                <div className="tile is-parent">
-                  <article className="tile is-child box">
-                    ...
-                  </article>
-                </div>
+
               </div>
               <div className="tile is-parent">
                 <article className="tile is-child box">
-                  <h3 className="[ is-size-4 ]">Birthday</h3>
                   <h3 className="[ is-size-4 ]">Gender</h3>
                   <input
                     className="[ is-editable-input  ]"
@@ -312,7 +301,7 @@ class ProfileComponent extends Component {
             />
           </section>
         </section>
-      </form>
+      </form >
     );
   }
 }
@@ -320,7 +309,7 @@ class ProfileComponent extends Component {
 // gets data from state
 const mapStateToProps = state => {
   return {
-    profile: state.ProfileReducer
+    profile: state.reducer.profile
   }
 }
 
