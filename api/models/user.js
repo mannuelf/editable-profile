@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const consola = require('consola')
 
 // create user schema and model
 const UserSchema = new Schema({
@@ -51,4 +52,4 @@ const UserSchema = new Schema({
 
 const User = mongoose.model('user', UserSchema)
 
-module.exports = UserSchema
+module.exports = User

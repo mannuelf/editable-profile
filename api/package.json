@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "spark-api",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
     "cloudinary": "^1.13.2",
     "consola": "^2.5.6",
     "cookie-parser": "~1.4.3",
