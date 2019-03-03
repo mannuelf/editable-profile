@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 
-class CitiesOptionsSelector extends Component {
+class LocationSelector extends Component {
   render() {
     const locations = this.props.locationProps;
+    console.log('yay', this.props.initLocationProps)
     const allCities = locations.map((value, index) => {
-      return <option key={index}>{value.city}</option>
+      return <option key={index} selected={this.props.initLocationProps === value.city}>{value.city}</option>
     })
     return (
       <select
@@ -16,4 +17,4 @@ class CitiesOptionsSelector extends Component {
   }
 }
 
-export default CitiesOptionsSelector
+export default LocationSelector

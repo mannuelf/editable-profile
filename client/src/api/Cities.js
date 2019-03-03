@@ -5,7 +5,6 @@ const fetchCities = (e) => {
   API.get('locations/cities')
     .then(res => {
       cityArray = res.data.cities
-      console.log('BOOO', cityArray)
       return cityArray
     })
     .catch(err => {

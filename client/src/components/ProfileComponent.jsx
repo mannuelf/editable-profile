@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import CityOptionsSelector from './CityOptionsSelector'
+import LocationSelector from './LocationSelector'
 import EthnicitySelector from './EthnicitySelector'
 import FigureSelector from './FigureSelector'
 import GenderSelector from './GenderSelector'
@@ -194,7 +194,10 @@ class ProfileComponent extends Component {
                       <h3 className="[ is-size-4 ]">Location</h3>
                       <div className="control has-icons-left">
                         <div className="select">
-                          <CityOptionsSelector locationProps={this.props.locationProps} />
+                          <LocationSelector
+                            initLocationProps={this.state.location}
+                            locationProps={this.props.locationProps}
+                          />
                         </div>
                         <span className="icon is-left">
                           <i className="fas fa-globe"></i>
@@ -210,6 +213,7 @@ class ProfileComponent extends Component {
                   <h3 className="[ is-size-4 ]">Gender</h3>
                   <div className="select">
                     <GenderSelector
+                      initGenderProps={this.state.gender}
                       gender={this.props.gender}
                       onChange={this.handleGender}
                     />
@@ -218,6 +222,7 @@ class ProfileComponent extends Component {
                   <h3 className="[ is-size-4 ]">Ethnicity</h3>
                   <div className="select">
                     <EthnicitySelector
+                      initEthnicityProps={this.state.props}
                       ethnicity={this.props.ethnicity}
                     />
                   </div>
@@ -225,23 +230,19 @@ class ProfileComponent extends Component {
                   <h3 className="[ is-size-4 ]">Religion</h3>
                   <div className="select">
                     <ReligionSelector
+                      initReligionProps={this.state.religion}
                       religion={this.props.religion}
                       onChange={this.handleReligion}
                     />
                   </div>
 
                   <h3 className="[ is-size-4 ]">Height</h3>
-                  <input
-                    className="[ is-editable-input  ]"
-                    type="text"
-                    name="userHeight"
-                    value={this.state.userHeight}
-                    onChange={this.handleUserHeight}
-                  />
+                  <p>{this.state.userHeight}</p>
 
                   <h3 className="[ is-size-4 ]">Figure</h3>
                   <div className="select">
                     <FigureSelector
+                      initFigure={this.props.figure}
                       figure={this.props.figure}
                       onChange={this.handleFigure}
                     />
@@ -251,6 +252,7 @@ class ProfileComponent extends Component {
                   <h3 className="[ is-size-4 ]">Marital Status</h3>
                   <div className="select">
                     <MaritalSelector
+                      initMaritalProps={this.state.maritalStatus}
                       marital_status={this.props.marital_status}
                       onChange={this.handleMaritalStatus}
                     />
