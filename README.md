@@ -17,6 +17,16 @@ I am using an express server for the back-end. I used `express-generator` to sca
 
 I've setup seven routes for the given endpoints, and setup on POST route to save the image. I have also setup a user route to update a user.
 
+| Request  | URI  |   |   |   |
+|---|---|---|---|---|
+| POST | http://localhost:3001/user/   |   |   |   |
+| GET  | http://localhost:3001/user/  |   |   |   |
+| PUT  | http://localhost:3001/user/:id  |   |   |   |
+| DEL  | http://localhost:3001/user/:id  |   |   |   |
+| GET  | http://localhost:3001/user/attributes  |   |   |   |
+| GET  | http://localhost:3001/locations/cities  |   |   |   |
+| POST | http://localhost:3001/upload  |   |   |   |
+
 ## Make
 
 To start run helpful make commands:
