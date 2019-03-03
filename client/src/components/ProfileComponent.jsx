@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CityOptionsSelector from './CityOptionsSelector'
-import API from '../api/Api'
+import EthnicitySelector from './EthnicitySelector'
+import FigureSelector from './FigureSelector'
+import GenderSelector from './GenderSelector'
+import MaritalSelector from './MaritalSelector'
+import ReligionSelector from './ReligionSelector'
 
 class ProfileComponent extends Component {
   constructor(props) {
@@ -78,29 +82,6 @@ class ProfileComponent extends Component {
       selectedFile: event.target.files[0],
       loaded: 0
     })
-  }
-
-  handleUpload = (profileObject) => {
-    const data = new FormData(profileObject)
-    data.append('file',
-      this.state.selectedFile,
-      this.state.selectedFile.name
-    )
-    console.log('data', data)
-    API.post(`/upload`, data, {
-      onUploadProgress: ProgressEvent => {
-        this.setState({
-          loaded: (ProgressEvent.loaded / ProgressEvent.total * 100),
-        })
-        console.log('axios', data)
-      },
-    })
-      .then(response => {
-        console.log('response', response)
-      })
-      .catch(error => {
-        console.log('error', error)
-      })
   }
 
   handleLocation = (event) => {
@@ -205,18 +186,11 @@ class ProfileComponent extends Component {
                   <div className="tile is-parent">
                     <article className="tile is-child box">
                       <h3 className="[ is-size-4 ]">Birthday</h3>
-                      <div className="control">
-                        <div className="select">
-                          <input
-                            type="date"
-                            className="[ is-editable-input ]"
-                            name="birthday"
-                            value="2018-07-22"
-                            min="2018-01-01"
-                            max="2018-12-31"
-                            onChange={this.handleBirthday} />
-                        </div>
-                      </div>
+                      <input type="date"
+                        placeholder={this.state.birthday}
+                        onChange={this.handleBirthday}
+                        value={this.state.birthday} />
+
                       <h3 className="[ is-size-4 ]">Location</h3>
                       <div className="control has-icons-left">
                         <div className="select">
@@ -234,29 +208,28 @@ class ProfileComponent extends Component {
               <div className="tile is-parent">
                 <article className="tile is-child box">
                   <h3 className="[ is-size-4 ]">Gender</h3>
-                  <input
-                    className="[ is-editable-input  ]"
-                    type="text"
-                    name="gender"
-                    value={this.state.gender}
-                    onChange={this.handleGender}
-                  />
+                  <div className="select">
+                    <GenderSelector
+                      gender={this.props.gender}
+                      onChange={this.handleGender}
+                    />
+                  </div>
+
                   <h3 className="[ is-size-4 ]">Ethnicity</h3>
-                  <input
-                    className="[ is-editable-input  ]"
-                    type="text"
-                    name="ethnicity"
-                    value={this.state.ethnicity}
-                    onChange={this.handleEthnicity}
-                  />
+                  <div className="select">
+                    <EthnicitySelector
+                      ethnicity={this.props.ethnicity}
+                    />
+                  </div>
+
                   <h3 className="[ is-size-4 ]">Religion</h3>
-                  <input
-                    className="[ is-editable-input  ]"
-                    type="text"
-                    name="religion"
-                    value={this.state.religion}
-                    onChange={this.handleReligion}
-                  />
+                  <div className="select">
+                    <ReligionSelector
+                      religion={this.props.religion}
+                      onChange={this.handleReligion}
+                    />
+                  </div>
+
                   <h3 className="[ is-size-4 ]">Height</h3>
                   <input
                     className="[ is-editable-input  ]"
@@ -265,22 +238,24 @@ class ProfileComponent extends Component {
                     value={this.state.userHeight}
                     onChange={this.handleUserHeight}
                   />
+
                   <h3 className="[ is-size-4 ]">Figure</h3>
-                  <input
-                    className="[ is-editable-input  ]"
-                    type="text"
-                    name="figure"
-                    value={this.state.figure}
-                    onChange={this.handleFigure}
-                  />
+                  <div className="select">
+                    <FigureSelector
+                      figure={this.props.figure}
+                      onChange={this.handleFigure}
+                    />
+                  </div>
+
+
                   <h3 className="[ is-size-4 ]">Marital Status</h3>
-                  <input
-                    className="[ is-editable-input  ]"
-                    type="text"
-                    name="maritalStatus"
-                    value={this.state.maritalStatus}
-                    onChange={this.handleMaritalStatus}
-                  />
+                  <div className="select">
+                    <MaritalSelector
+                      marital_status={this.props.marital_status}
+                      onChange={this.handleMaritalStatus}
+                    />
+                  </div>
+
                   <h3 className="[ is-size-4 ]">Occupation</h3>
                   <input
                     className="[ is-editable-input  ]"
