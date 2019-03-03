@@ -45,13 +45,6 @@ services:
         networks:
             - sparkwebappnetwork
 
-    mongo-express:
-        image: mongo-express
-        ports:
-          - 8081:8081
-        networks:
-            - sparkwebappnetwork
-
 networks:
     sparkwebappnetwork:
         driver: bridge
