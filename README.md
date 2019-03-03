@@ -44,7 +44,8 @@ I have chosen React Js for the front end. I've used `create-react-app` to scaffo
 
 I am using an express server for the back-end. I used `express-generator` to scaffold the app. using MonogoDB for the database. I am using Docker and docker-compose to manage containers.
 
-I've setup seven routes for the given endpoints, and setup on POST route to save the image. I have also setup a user route to update a user.
+I've setup seven routes for the given endpoints, 
+￼*and setup on POST route to save the image. I have also setup a user route to update a user.
 
 You may hit these routes with your favourite API tool, I'm enjoying insomnia at the moment.
 
