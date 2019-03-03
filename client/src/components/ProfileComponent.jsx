@@ -6,6 +6,7 @@ import FigureSelector from './FigureSelector'
 import GenderSelector from './GenderSelector'
 import MaritalSelector from './MaritalSelector'
 import ReligionSelector from './ReligionSelector'
+import BirthdayCalendar from './BirthdayCalendar'
 
 class ProfileComponent extends Component {
   constructor(props) {
@@ -57,8 +58,8 @@ class ProfileComponent extends Component {
     this.setState({ aboutMe: event.target.value })
   }
 
-  handleBirthday = (event) => {
-    this.setState({ birthday: event.target.value })
+  handleBirthday = (date) => {
+    console.log('handleBirthday',date);
   }
 
   handleDisplayName = (event) => {
@@ -112,6 +113,7 @@ class ProfileComponent extends Component {
     this.setState({ userHeight: event.target.value })
   }
   render() {
+    console.log('State Date', this.state.birthday);
     return (
       <form onSubmit={this.handleSubmit} >
         <section className="[ hero ] [ is-primary ] [ is-primary--dark ]">
@@ -186,10 +188,11 @@ class ProfileComponent extends Component {
                   <div className="tile is-parent">
                     <article className="tile is-child box">
                       <h3 className="[ is-size-4 ]">Birthday</h3>
-                      <input type="date"
-                        placeholder={this.state.birthday}
-                        onChange={this.handleBirthday}
-                        value={this.state.birthday} />
+
+                      <BirthdayCalendar
+                        initialBirthdayProps={this.state.birthday}
+                        handleBirthdayProps={this.handleBirthday}
+                      />
 
                       <h3 className="[ is-size-4 ]">Location</h3>
                       <div className="control has-icons-left">

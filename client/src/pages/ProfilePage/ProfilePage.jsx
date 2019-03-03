@@ -15,7 +15,7 @@ class ProfilePage extends Component {
       figure: [],
       gender: [],
       marital_status: [],
-      religion: []
+      religion: [],
     }
   }
 
@@ -64,7 +64,7 @@ class ProfilePage extends Component {
   postForm = (profileObject) => {
     let data = profileObject
     data = JSON.stringify(data)
-    API.put(`/user`, {
+    API.post(`/user`, {
       data
     }).then((response) => {
     }).catch((err) => {
@@ -73,7 +73,6 @@ class ProfilePage extends Component {
   }
 
   render() {
-    console.log('ProfilePage: ', this.state)
     let loading = (
       (this.state.locations === undefined || this.state.locations.length === 0)
       && (this.state.ethnicity === undefined || this.state.ethnicity === 0)
@@ -81,17 +80,18 @@ class ProfilePage extends Component {
       && (this.state.gender === undefined || this.state.gender === 0)
       && (this.state.marital_status === undefined || this.state.marital_status === 0)
       && (this.state.religion === undefined || this.state.religion === 0)
+      && (this.state.birthday === undefined || this.state.birthday === 0)
     )
       ? <div><LoadingIcon /></div>
       : <div>
         <ProfileComponent
-          profileProps={this.updateProfileDetails}
-          locationProps={this.state.locations}
           displayNameProps={this.state.displayName}
           ethnicity={this.state.ethnicity}
           figure={this.state.figure}
           gender={this.state.gender}
+          locationProps={this.state.locations}
           marital_status={this.state.marital_status}
+          profileProps={this.updateProfileDetails}
           religion={this.state.religion}
         />
       </div>
