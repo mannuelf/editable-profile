@@ -7,29 +7,9 @@ This is a mono repository containing two applications. Each application has it o
 1. client
 2. api
 
-## Client
-
-I have chosen React Js for the front end. I've used `create-react-app` to scaffold the app. I am using SASS (Sass flavour). I am also using Bulma front end framework.
-
-## Api
-
-I am using an express server for the back-end. I used `express-generator` to scaffold the app. using MonogoDB for the database. I am using Docker and docker-compose to manage containers.
-
-I've setup seven routes for the given endpoints, and setup on POST route to save the image. I have also setup a user route to update a user.
-
-| Request  | URI  |   |   |   |
-|---|---|---|---|---|
-| POST | http://localhost:3001/user/   |   |   |   |
-| GET  | http://localhost:3001/user/  |   |   |   |
-| PUT  | http://localhost:3001/user/:id  |   |   |   |
-| DEL  | http://localhost:3001/user/:id  |   |   |   |
-| GET  | http://localhost:3001/user/attributes  |   |   |   |
-| GET  | http://localhost:3001/locations/cities  |   |   |   |
-| POST | http://localhost:3001/upload  |   |   |   |
-
 ## Make
 
-To start run helpful make commands:
+To start run helpful make command:
 
 ```bash
 make help
@@ -56,12 +36,56 @@ cd /api && npm run dev
 cd /client && npm start
 ```
 
+## Client
+
+I have chosen React Js for the front end. I've used `create-react-app` to scaffold the app. I am using SASS (Sass flavour). I am also using Bulma front end framework.
+
+## Api
+
+I am using an express server for the back-end. I used `express-generator` to scaffold the app. using MonogoDB for the database. I am using Docker and docker-compose to manage containers.
+
+I've setup seven routes for the given endpoints, and setup on POST route to save the image. I have also setup a user route to update a user.
+
+You may hit these routes with your favourite API tool, I'm enjoying insomnia at the moment.
+| Request  | URI  | Description  | 
+|---|---|---|---|---|
+| POST | http://localhost:3001/user/   | Add user   |
+| GET  | http://localhost:3001/user/  | Get all users  |
+| PUT  | http://localhost:3001/user/:id  | Update existing user  |
+| DEL  | http://localhost:3001/user/:id  | Delete user   |
+| GET  | http://localhost:3001/user/attributes  | Get user attributes |
+| GET  | http://localhost:3001/locations/cities  | Get locations, cities |
+| POST | http://localhost:3001/upload  | Upload image |
+
+### Object for your testing purposes.
+
+```JavaScript
+{
+    "_id" : ObjectId("5c7ba1fada08416b32b2e360"),
+    "aboutMe" : "Hello I am a professional football manager. I enjoy reading and classical music. I never bring work home, I promise",
+    "displayName" : "Rafa",
+    "ethnicity" : "White",
+    "figure" : "Slim",
+    "gender" : "Male",
+    "location" : "Newcastle Upon Tyne",
+    "maritalStatus" : "Single",
+    "occupation" : "Football Manager",
+    "profilePicture" : "photo",
+    "realName" : "Rafael Benítez",
+    "religion" : "Christian",
+    "selectedFile" : "photo",
+    "userHeight" : "1.7",
+    "__v" : 0
+}
+```
+
 ![api](_screenshots/api.png)
-![robomongo](_screenshots/robomongo.png)
 
 ## Database - MongoDB
 
 Using MongoDB, pull down a instance of mongodb, all handled by scripts do a `make up`.
+
+![robomongo](_screenshots/robomongo.png)
 
 ### Install Docker & Docker Compose
 
