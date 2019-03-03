@@ -8,6 +8,9 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'This field is required']
   },
+  birthday: {
+    type: Date,
+  },
   displayName: {
     type: String,
     required: [true, 'Name field is require']
@@ -32,9 +35,6 @@ const UserSchema = new Schema({
   occupation: {
     type: String,
   },
-  profilePicture: {
-    type: String,
-  },
   realName: {
     type: String,
     required: [true, 'Real Name field is require']
@@ -43,6 +43,9 @@ const UserSchema = new Schema({
     type: String,
   },
   selectedFile: {
+    type: String,
+  },
+  profilePicture: {
     type: String,
   },
   userHeight: {
