@@ -8,15 +8,15 @@
       "type": "chrome",
       "request": "launch",
       "name": "Launch Client",
-      "url": "http://localhost:3001",
+      "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/client"
     },
     {
       "type": "chrome",
       "request": "launch",
       "name": "Debug API",
-      "url": "http://localhost:9000",
-      "webRoot": "${workspaceFolder}/api/public"
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}/api"
     },
   ]
 }
