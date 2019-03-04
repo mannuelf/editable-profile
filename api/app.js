@@ -7,11 +7,10 @@ const express = require('express')
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const path = require('path')
-const bodyParser = require("body-parser");
 
 const citiesRouter = require('./routes/locations/cities')
 const indexRouter = require('./routes/index')
-const uploadImageRouter = require('./routes/uploadImage')
+// const uploadImageRouter = require('./routes/uploadImage')
 const userAttributesRouter = require('./routes/user/attributes')
 const userRouter = require('./routes/user')
 
@@ -25,16 +24,14 @@ try {
 }
 
 app.use(logger('dev'))
-// app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 app.use('/locations/cities', citiesRouter)
-app.use('/upload', uploadImageRouter)
+// app.use('/upload', uploadImageRouter)
 app.use('/user', userRouter)
 app.use('/user/attributes', userAttributesRouter)
 
